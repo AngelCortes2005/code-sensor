@@ -1,8 +1,8 @@
-import NextAuth from "next-auth";
+import { type NextAuthOptions } from "next-auth";
 import Github from "next-auth/providers/github";
 import { supabase } from "@/lib/supabase/supabaseClient";
 
-const authConfig = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     Github({
       clientId: process.env.GITHUB_CLIENT_ID!,
@@ -13,7 +13,6 @@ const authConfig = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "github") {
-
         const { data: existing, error } = await supabase
           .from("users")
           .select("id")
@@ -43,14 +42,11 @@ const authConfig = NextAuth({
       return true;
     },
 
-    async session({session, token}){
-        if(session.user && token.sub){
-            (session.user as any ).id = token.sub;
-        }
-        return session;
-    }
+    async session({ session, token }) {
+      if (session.user && token.sub) {
+        (session.user as any).id = token.sub;
+      }
+      return session;
+    },
   },
-});
-
-export const { auth, handlers } = authConfig;
-export const { GET, POST } = handlers;
+};
