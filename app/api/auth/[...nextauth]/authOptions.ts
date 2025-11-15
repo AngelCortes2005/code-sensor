@@ -7,6 +7,11 @@ export const authOptions: NextAuthOptions = {
     Github({
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      authorization: {
+    params: {
+      scope: "read:user repo",
+    },
+  },
     }),
   ],
 
@@ -42,10 +47,19 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
 
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
+        console.log("ACCOUNT DATA DURANTE LOGIN:", account);
+      }
+      return token;
+    },
+
     async session({ session, token }) {
       if (session.user && token.sub) {
         (session.user as any).id = token.sub;
       }
+      (session as any).accessToken = token.accessToken;
       return session;
     },
   },

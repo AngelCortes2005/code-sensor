@@ -20,13 +20,13 @@ const DashboardPage = async () => {
       {/* HEADER DEL DASHBOARD */}
       <header className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Hola, {user?.name}</h1>
+          <h1 className="text-2xl text-[#00FE74] shadow font-bold">Hola, {user?.name}</h1>
           <p className="text-sm text-gray-500">
             Bienvenido a tu panel de análisis inteligente
           </p>
         </div>
 
-        {/* Imagen del avatar */}
+        {/* Image avatar */}
         <Image
           src={user?.image || "/avatar-placeholder.png"}
           alt="Avatar"
@@ -41,7 +41,7 @@ const DashboardPage = async () => {
         {/* Repositorios */}
         <Link
           href="/repos"
-          className="p-6 border rounded-xl hover:bg-gray-50 transition"
+          className="p-6 border rounded-xl hover:bg-gray-800 transition"
         >
           <h2 className="text-lg font-semibold mb-1">📁 Mis Repositorios</h2>
           <p className="text-sm text-gray-500">
@@ -52,7 +52,7 @@ const DashboardPage = async () => {
         {/* Historial */}
         <Link
           href="/history"
-          className="p-6 border rounded-xl hover:bg-gray-50 transition"
+          className="p-6 border rounded-xl hover:bg-gray-800 transition"
         >
           <h2 className="text-lg font-semibold mb-1">📊 Historial</h2>
           <p className="text-sm text-gray-500">
@@ -63,7 +63,7 @@ const DashboardPage = async () => {
         {/* Perfil */}
         <Link
           href="/profile"
-          className="p-6 border rounded-xl hover:bg-gray-50 transition"
+          className="p-6 border rounded-xl hover:bg-gray-800 transition"
         >
           <h2 className="text-lg font-semibold mb-1">👤 Mi Perfil</h2>
           <p className="text-sm text-gray-500">
