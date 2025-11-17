@@ -17,7 +17,6 @@ export default async function ReposPage() {
 
   const octokit = createOctokit(token);
 
-  // Obtener repos del usuario autenticado
   const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser({
     per_page: 100,
     sort: "updated",
@@ -38,7 +37,6 @@ export default async function ReposPage() {
               {repo.description || "Sin descripción"}
             </p>
 
-            {/* Botón futuro de analizar */}
             <button
               className="mt-3 px-4 py-2 text-sm bg-black text-white rounded"
             >
