@@ -19,7 +19,7 @@ const HeroSection = () => {
           className="text-5xl md:text-7xl font-bold mb-6"
         >
           Analiza tu código con{' '}
-          <span className="bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-[#019A8E] to-CodeSensor-Primary bg-clip-text text-transparent">
             Inteligencia Artificial
           </span>
         </motion.h1>
@@ -30,7 +30,9 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
         >
-          Code Sensor utiliza IA avanzada para revisar tus repositorios y proporcionar feedback detallado sobre la calidad, seguridad y mejores prácticas de tu código.
+          Code Sensor utiliza IA avanzada para revisar tus repositorios y 
+          proporcionar feedback detallado sobre la calidad, seguridad y 
+          mejores prácticas de tu código.
         </motion.p>
         
         <motion.div

@@ -15,38 +15,39 @@ const MainHeader = () => {
 
   return (
     <header className={`fixed w-full py-5 px-5 flex justify-between items-center z-50 transition-all duration-300 ${
-      scrolled ? 'bg-gray-900/80 backdrop-blur-md' : 'bg-transparent'
+      scrolled ? 'bg-gray-800/80 backdrop-blur-md' : 'bg-transparent'
     }`}>
       <div className="text-2xl font-bold flex items-center space-x-2">
         <Image src="/CodeSensorLogo.webp" 
         alt="CodeSensor Logo" 
         width={60} 
         height={60} />
-        <span>Code<span className="text-[#00FE74]">Sensor</span></span>
+        <span>Code<span className="text-CodeSensor-Primary">Sensor</span></span>
       </div>
       
-      <nav className="hidden md:block">
+      <nav className={`hidden md:block px-6 py-3 rounded-full mr-16 ${
+      scrolled ? 'bg-transparent' : 'bg-gray-800/80 backdrop-blur-sm'}`}>
         <ul className="flex space-x-8">
           <li>
             <a href="#features" className="text-white hover:text-blue-400 transition-colors">
-              Características
+              Fetures
             </a>
           </li>
           <li>
             <a href="#how-it-works" className="text-white hover:text-blue-400 transition-colors">
-              Cómo funciona
+              How It Works
             </a>
           </li>
           <li>
             <a href="#pricing" className="text-white hover:text-blue-400 transition-colors">
-              Precios
+              Pricing
             </a>
           </li>
         </ul>
       </nav>
       
-      <button className="bg-linear-to-r from-blue-400 to-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all">
-        Comenzar
+      <button className="w-35 bg-linear-to-r from-[#019A8E] to-CodeSensor-Primary hover:from-CodeSensor-Primary hover:to-[#019A8E] transition duration-300 text-white px-6 py-2 rounded-full font-semibold">
+        Start
       </button>
     </header>
   );

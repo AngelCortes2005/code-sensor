@@ -3,6 +3,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -87,4 +89,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@theme{
+  --color-CodeSensor-Primary: #00FE74;
 }
