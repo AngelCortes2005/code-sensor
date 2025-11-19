@@ -2,39 +2,39 @@
 <h3><em>AI-Powered Repository Insight</em></h3>
 
 <blockquote>
-  <p><em>“Tu código habla. CodeSense lo escucha.”</em></p>
+  <p><em>“Your code speaks. Code Sensor listens.”</em></p>
 </blockquote>
 
 <p>
-  CodeSense es una aplicación web que se conecta a tu cuenta de GitHub, analiza tus repositorios 
-  y genera un feedback inteligente usando IA. Todo en una interfaz limpia, simple y enfocada en 
-  lo importante: <strong>mejorar tu código</strong>.
+  CodeSense is a web application that connects to your GitHub account, analyzes your repositories, 
+  and generates intelligent feedback using AI. All within a clean, simple interface focused on what 
+  truly matters: <strong>improving your code</strong>.
 </p>
 
 <hr />
 
-<h2>✨ <strong>Lo que hace CodeSense</strong></h2>
+<h2>✨ <strong>What CodeSense Does</strong></h2>
 <ul>
-  <li>🔐 Inicio de sesión con <strong>GitHub OAuth</strong></li>
-  <li>📁 Lectura automática de tus repos</li>
-  <li>🔍 Análisis técnico del código</li>
-  <li>🤖 Feedback generado con IA</li>
-  <li>🧮 Score global de calidad (0–100)</li>
-  <li>🗂️ Historial de análisis por usuario</li>
-  <li>🌫️ UI minimalista + enfoque en claridad</li>
+  <li>🔐 Login with <strong>GitHub OAuth</strong></li>
+  <li>📁 Automatic repository reading</li>
+  <li>🔍 Technical code analysis</li>
+  <li>🤖 AI-generated feedback</li>
+  <li>🧮 Global quality score (0–100)</li>
+  <li>🗂️ Per-user analysis history</li>
+  <li>🌫️ Minimalist UI focused on clarity</li>
 </ul>
 
-<h2>🧠 <strong>Cómo funciona</strong></h2>
+<h2>🧠 <strong>How It Works</strong></h2>
 <ol>
-  <li>Conectás tu cuenta de GitHub</li>
-  <li>Elegís un repositorio</li>
-  <li>El backend lo analiza</li>
-  <li>La IA interpreta los resultados</li>
-  <li>Te entrega un <strong>informe claro, corto y accionable</strong></li>
-  <li>Todo queda guardado en tu historial personal</li>
+  <li>Connect your GitHub account</li>
+  <li>Select a repository</li>
+  <li>The backend analyzes it</li>
+  <li>The AI interprets the results</li>
+  <li>You receive a <strong>clear, concise, actionable report</strong></li>
+  <li>Everything is stored in your personal history</li>
 </ol>
 
-<h2>🛠️ <strong>Stack</strong></h2>
+<h2>🛠️ <strong>Tech Stack</strong></h2>
 
 <p><strong>Frontend</strong></p>
 <ul>
@@ -50,7 +50,7 @@
   <li>OpenAI GPT-4o</li>
 </ul>
 
-<p><strong>Base de datos</strong></p>
+<p><strong>Database</strong></p>
 <ul>
   <li>Supabase (PostgreSQL)</li>
 </ul>
