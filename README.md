@@ -1,4 +1,4 @@
-<h1>🌐 <strong>Code Sensor</strong></h1>
+<h1>🌐 <strong>Code Sensor(In Process)</strong></h1>
 <h3><em>AI-Powered Repository Insight</em></h3>
 
 <blockquote>
