@@ -30,7 +30,7 @@ export default async function ReposPage() {
         {repos.map((repo) => (
           <li
             key={repo.id}
-            className="border rounded-lg p-4 hover:bg-gray-50 transition"
+            className="border rounded-lg p-4 hover:bg-gray-800 transition"
           >
             <h2 className="font-semibold text-lg">{repo.name}</h2>
             <p className="text-gray-500 text-sm">

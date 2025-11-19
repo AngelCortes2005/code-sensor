@@ -15,7 +15,7 @@ const MainHeader = () => {
 
   return (
     <header className={`fixed w-full py-5 px-5 flex justify-between items-center z-50 transition-all duration-300 ${
-      scrolled ? 'bg-gray-800/80 backdrop-blur-md' : 'bg-transparent'
+      scrolled ? 'bg-[#1A1A1A] backdrop-blur-md' : 'bg-transparent'
     }`}>
       <div className="text-2xl font-bold flex items-center space-x-2">
         <Image src="/CodeSensorLogo.webp" 
@@ -26,7 +26,7 @@ const MainHeader = () => {
       </div>
       
       <nav className={`hidden md:block px-6 py-3 rounded-full mr-16 ${
-      scrolled ? 'bg-transparent' : 'bg-gray-800/80 backdrop-blur-sm'}`}>
+      scrolled ? 'bg-transparent' : 'bg-[#1A1A1A]/80 backdrop-blur-sm'}`}>
         <ul className="flex space-x-8">
           <li>
             <a href="#features" className="text-white hover:text-blue-400 transition-colors">

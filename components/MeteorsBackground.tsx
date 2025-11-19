@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import React, { useMemo, useState, useEffect } from "react";
-import { Meteor } from "../types/types";
 
 const MeteorBackground: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);

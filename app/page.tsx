@@ -2,10 +2,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import MeteorsBackground from "../components/MeteorsBackground";
-import ContentSections from "@/components/ContentSections";
 import HeroSection from "@/components/HeroSection";
 import MainHeader from "@/components/layout/MainHeader";
 import PlanetAnimation from "@/components/PlanetAnimation";
+import AceWorldmapDemo from "@/components/AceWorldmapDemo";
+import Features from "@/components/Features";
+import SecurityFeature from "@/components/SecurityFeature";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -37,7 +40,10 @@ export default function Home() {
         <PlanetAnimation />
         <MainHeader />
         <HeroSection />
-        <ContentSections />
+        <Features/>
+        <AceWorldmapDemo />
+        <SecurityFeature />
+        <Footer />
       </div>
     </div>
   );

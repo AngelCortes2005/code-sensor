@@ -1,16 +1,27 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import { LogOut } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const DashboardPage = async () => {
-    const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
   if (!session) {
-    return <div className="flex items-center justify-center h-screen">
-      <p className="text-lg">No has iniciado sesión.</p>
-    </div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg">No has iniciado sesión.</p>
+      </div>
+    );
   }
 
   const user = session?.user;
@@ -19,53 +30,37 @@ const DashboardPage = async () => {
     <div className="p-8 space-y-8">
       <header className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl text-[#00FE74] shadow font-bold">Hola, {user?.name}</h1>
+          <h1 className="text-2xl text-transparent bg-clip-text bg-linear-to-r from-[#019A8E] to-CodeSensor-Primary shadow font-bold">
+            Welcome, {user?.name}
+          </h1>
           <p className="text-sm text-gray-500">
-            Bienvenido a tu panel de análisis inteligente
+            Welcome to your dashboard where you can manage 
+            your repositories and view analysis reports.
           </p>
         </div>
 
-        <Image
-          src={user?.image || "/avatar-placeholder.png"}
-          alt="Avatar"
-          width={48}
-          height={48}
-          className="rounded-full"
-        />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Image
+              src={user?.image || "/avatar-placeholder.png"}
+              alt="Avatar"
+              width={48}
+              height={48}
+              className="rounded-full"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="start">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem className="text-red-600">
+                Log-Out
+                <DropdownMenuShortcut><LogOut /></DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </header>
-
-      <section className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-
-        <Link
-          href="/repos"
-          className="p-6 border rounded-xl hover:bg-gray-800 transition"
-        >
-          <h2 className="text-lg font-semibold mb-1">📁 Mis Repositorios</h2>
-          <p className="text-sm text-gray-500">
-            Explora tus repos conectados a GitHub
-          </p>
-        </Link>
-
-        <Link
-          href="/history"
-          className="p-6 border rounded-xl hover:bg-gray-800 transition"
-        >
-          <h2 className="text-lg font-semibold mb-1">📊 Historial</h2>
-          <p className="text-sm text-gray-500">
-            Revisa tus análisis anteriores
-          </p>
-        </Link>
-
-        <Link
-          href="/profile"
-          className="p-6 border rounded-xl hover:bg-gray-800 transition"
-        >
-          <h2 className="text-lg font-semibold mb-1">👤 Mi Perfil</h2>
-          <p className="text-sm text-gray-500">
-            Ajustes de cuenta y preferencias
-          </p>
-        </Link>
-      </section>
     </div>
   );
 };
