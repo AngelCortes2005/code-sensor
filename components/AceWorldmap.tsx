@@ -138,7 +138,7 @@ export default function AceWorldMap({
               d={path.path}
               fill="none"
               stroke="url(#path-gradient)"
-              strokeWidth="1"
+              strokeWidth="1" 
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
               transition={{

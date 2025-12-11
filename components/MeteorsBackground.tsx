@@ -28,7 +28,7 @@ const MeteorBackground: React.FC = () => {
     return (
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1] bg-black" />
     );
-  }
+  } 
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1] bg-black">

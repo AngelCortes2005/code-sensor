@@ -1,105 +1,108 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Code2, Shield, TrendingUp, Zap, GitBranch, FileCheck } from "lucide-react";
+
 const KEY_FEATURES = [
   {
+    icon: GitBranch,
     title: "GitHub Integration",
-    description:
-      "Connect your GitHub account securely and allow Code Sensor to analyze your repositories automatically.",
+    description: "Seamless connection with your GitHub repositories for instant analysis.",
   },
   {
-    title: "AI-Powered Code Analysis",
-    description:
-      "Evaluate code quality, structure, security, documentation, and best practices using advanced AI models.",
+    icon: Code2,
+    title: "AI-Powered Analysis",
+    description: "Advanced machine learning algorithms evaluate your code quality and structure.",
   },
   {
-    title: "Quality Scoring System",
-    description:
-      "Receive a global quality score for each repository, with detailed breakdowns across multiple technical criteria.",
+    icon: TrendingUp,
+    title: "Quality Scoring",
+    description: "Comprehensive scoring system with detailed breakdowns across multiple criteria.",
   },
   {
+    icon: Zap,
     title: "Smart Recommendations",
-    description:
-      "Get actionable suggestions to improve maintainability, documentation, security, and overall code health.",
+    description: "Actionable insights to improve maintainability and code health instantly.",
   },
   {
+    icon: FileCheck,
     title: "Interactive Reports",
-    description:
-      "View clean, modern reports with visual metrics, issue summaries, and improvement paths, all inside a sleek dashboard.",
+    description: "Beautiful, modern dashboards with visual metrics and improvement paths.",
   },
   {
-    title: "Completely Free",
-    description:
-      "All features are entirely free to use—focus on writing great code while Code Sensor handles the analysis.",
+    icon: Shield,
+    title: "Security First",
+    description: "Detect vulnerabilities and security issues before they become problems.",
   },
 ];
+
 export default function FeaturesGrid() {
   return (
-    <motion.section
-      className="relative py-32"
-      initial={{
-        opacity: 0,
-      }}
-      whileInView={{
-        opacity: 1,
-      }}
-      transition={{
-        duration: 1,
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="relative py-32 px-4">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#019A8E]/5 to-transparent" />
+      
+      <div className="max-w-7xl mx-auto relative">
+        {/* Header */}
         <motion.div
-          initial={{
-            y: 20,
-            opacity: 0,
-          }}
-          whileInView={{
-            y: 0,
-            opacity: 1,
-          }}
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <h2 className="md:text-5xl font-bold mb-6 text-[1.5rem] sm:text-3xl">
-            Everything you need to launch{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#019A8E] to-CodeSensor-Primary">
-              faster
+          <div className="inline-block px-4 py-2 rounded-full bg-CodeSensor-Primary/10 border border-CodeSensor-Primary/20 mb-6">
+            <span className="text-sm font-medium text-CodeSensor-Primary">Features</span>
+          </div>
+          
+          <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            Everything you need to{" "}
+            <span className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary bg-clip-text text-transparent">
+              ship faster
             </span>
           </h2>
-          <p className="text-lg max-w-2xl mx-auto">
-            Stop guessing about your code quality. Let Code Sensor analyze your
-            repositories and deliver powerful insights, recommendations, and
-            scores in seconds—so you can focus on building, not debugging.
+          
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light">
+            Powerful tools designed to help you write better code, faster.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Grid de features */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {KEY_FEATURES.map((feature, i) => (
             <motion.div
               key={feature.title}
-              initial={{
-                y: 20,
-                opacity: 0,
-              }}
-              whileInView={{
-                y: 0,
-                opacity: 1,
-              }}
-              transition={{
-                delay: i * 0.1,
-              }}
-              className="relative group"
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="group relative"
             >
-              <div className="absolute inset-0 bg-linear-to-b from-primary/20 to-transparent rounded-2xl blur-xl transition-all duration-500 group-hover:opacity-100 opacity-0" />
-              <div className="relative backdrop-blur-xl bg-black/80 border border-border p-8 rounded-2xl">
-                <h3 className="text-xl font-bold mb-4 text-transparent bg-clip-text bg-linear-to-r from-[#019A8E] to-CodeSensor-Primary">
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#019A8E]/20 to-CodeSensor-Primary/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Card */}
+              <div className="relative h-full backdrop-blur-xl bg-gradient-to-br from-gray-900/50 to-black/50 border border-gray-800 p-8 rounded-3xl group-hover:border-CodeSensor-Primary/50 transition-all duration-300">
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary p-3 mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <feature.icon className="w-full h-full text-black" />
+                </div>
+                
+                {/* Content */}
+                <h3 className="text-xl font-bold mb-3 text-white">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <p className="text-gray-400 leading-relaxed">
+                  {feature.description}
+                </p>
+
+                {/* Decorative line */}
+                <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary group-hover:w-full transition-all duration-500 rounded-b-3xl" />
               </div>
-            </motion.div>
+            </motion.div> 
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

@@ -19,7 +19,7 @@ function PlanetAnimaion() {
   });
 
   return (
-    <>
+    <> 
 
       <ambientLight intensity={0.4} />
       <pointLight position={[15, 15, 15]} intensity={2} color="#2ECC71" />

@@ -9,6 +9,7 @@ import AceWorldmapDemo from "@/components/AceWorldmapDemo";
 import Features from "@/components/Features";
 import SecurityFeature from "@/components/SecurityFeature";
 import Footer from "@/components/layout/Footer";
+import CTASection from "@/components/CTASection";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -40,9 +41,11 @@ export default function Home() {
         <PlanetAnimation />
         <MainHeader />
         <HeroSection />
+        
         <Features/>
         <AceWorldmapDemo />
         <SecurityFeature />
+        <CTASection />
         <Footer />
       </div>
     </div>
