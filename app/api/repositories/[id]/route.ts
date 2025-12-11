@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -17,7 +17,8 @@ export async function GET(
       );
     }
 
-    const repoId = parseInt(params.id);
+    const { id } = await params;
+    const repoId = parseInt(id);
     
     if (isNaN(repoId)) {
       return NextResponse.json(
