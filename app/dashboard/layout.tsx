@@ -1,10 +1,15 @@
 import React from 'react'
 import DashboardSideBar from '../../components/layout/DashboardSideBar';
+
 export default function Layout({children}: {children: React.ReactNode}) {
   return (
-    <div className="md:grid-cols-[256px_1fr] sm:grid">
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-black">
+      <div className="md:grid md:grid-cols-[280px_1fr] h-full">
         <DashboardSideBar />
-        {children}
+        <main className="overflow-auto">
+          {children}
+        </main>
+      </div>
     </div>
   )
 }
