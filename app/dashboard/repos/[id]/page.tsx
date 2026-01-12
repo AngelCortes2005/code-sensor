@@ -5,10 +5,12 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AnalysisResults } from '@/components/AnalysisResults';
+import { DetailedRecommendations } from '@/components/DetailedRecommendations';
 import { ScoreComparison, ComparisonSummary, BeforeAfter } from '@/components/AnalysisComparison';
 import { AnalysisChart } from '@/components/AnalysisChart';
 import { ExportButton } from '@/components/ExportButton';
 import { BadgeGenerator } from '@/components/BadgeGenerator';
+import { WebhookSettings } from '@/components/WebhookSettings';
 import { useAnalysisComparison } from '@/hooks/useAnalysisComparison';
 import { 
   ArrowLeft, 
@@ -387,8 +389,22 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
               <AnalysisResults analysis={displayedAnalysis!} />
             </div>
 
+            {/* Detailed Recommendations */}
+            {displayedAnalysis!.analysis_data?.recommendations && 
+             displayedAnalysis!.analysis_data.recommendations.length > 0 && (
+              <DetailedRecommendations 
+                recommendations={displayedAnalysis!.analysis_data.recommendations}
+              />
+            )}
+
             {/* Badge Generator */}
             <BadgeGenerator 
+              repositoryId={resolvedParams.id}
+              repositoryName={repository.name}
+            />
+
+            {/* Webhook Settings */}
+            <WebhookSettings
               repositoryId={resolvedParams.id}
               repositoryName={repository.name}
             />

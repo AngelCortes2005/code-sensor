@@ -2,14 +2,20 @@
 
 import { useSession } from 'next-auth/react';
 import { useRepositories } from '@/hooks/useRepositories';
+import { useAnalytics } from '@/hooks/useAnalytics';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TrendChart } from '@/components/TrendChart';
+import { TopRepositories } from '@/components/TopRepositories';
+import { ActivityHeatmap } from '@/components/ActivityHeatmap';
+import { MonthlyMetrics } from '@/components/MonthlyMetrics';
 import { RefreshCw, Github, Star, GitFork, Lock, TrendingUp, Code, Eye } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
   const { data: session } = useSession();
   const { repositories, loading, syncing, syncRepositories, error } = useRepositories();
+  const { analytics, loading: analyticsLoading } = useAnalytics();
 
   if (!session) {
     return (
@@ -116,6 +122,27 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {/* Analytics Section */}
+      {!loading && !analyticsLoading && analytics && repositories.length > 0 && (
+        <div className="space-y-6">
+          {/* Top Row: Trend Chart & Monthly Metrics */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <TrendChart data={analytics.trends} />
+            </div>
+            <div>
+              <MonthlyMetrics data={analytics.monthlyMetrics} />
+            </div>
+          </div>
+
+          {/* Second Row: Top Repositories & Activity Heatmap */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <TopRepositories repositories={analytics.topRepositories} />
+            <ActivityHeatmap data={analytics.activityHeatmap} />
+          </div>
         </div>
       )}
 

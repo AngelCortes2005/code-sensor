@@ -29,6 +29,11 @@ export interface AnalysisResult {
     priority: 'high' | 'medium' | 'low';
     description: string;
     implementation: string;
+    resources?: Array<{
+      title: string;
+      url: string;
+    }>;
+    example?: string;
   }>;
   overall_score: number;
   summary: string;
@@ -65,7 +70,14 @@ You must respond ONLY with a valid JSON object that has EXACTLY this structure:
       "category": "<text>",
       "priority": "<high|medium|low>",
       "description": "<text>",
-      "implementation": "<text>"
+      "implementation": "<text>",
+      "resources": [
+        {
+          "title": "<resource title>",
+          "url": "<url>"
+        }
+      ],
+      "example": "<code example if applicable>"
     }
   ],
   "overall_score": <number 0-100>,

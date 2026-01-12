@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import { Github, Database, Menu, X, LayoutDashboard, Activity } from "lucide-react";
+import { Github, Database, Menu, X, LayoutDashboard, Activity, GitCompare } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 const navItems = [
   { icon: <LayoutDashboard className="w-5 h-5" />, title: "Dashboard", href: "/dashboard" },
   { icon: <Github className="w-5 h-5" />, title: "Repositories", href: "/dashboard/repos" },
+  { icon: <GitCompare className="w-5 h-5" />, title: "Compare", href: "/dashboard/compare" },
   { icon: <Activity className="w-5 h-5" />, title: "History", href: "/dashboard/history" },
 ];
 
