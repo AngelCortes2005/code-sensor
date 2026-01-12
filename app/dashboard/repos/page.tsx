@@ -13,7 +13,7 @@ export default function ReposPage() {
   const [languageFilter, setLanguageFilter] = useState<string>('all');
 
   // Get unique languages
-  const languages = ['all', ...new Set(repositories.map(repo => repo.language).filter(Boolean))];
+  const languages = ['all', ...new Set(repositories.map(repo => repo.language).filter((lang): lang is string => Boolean(lang)))];
 
   // Filter repositories
   const filteredRepos = repositories.filter(repo => {
@@ -173,7 +173,7 @@ export default function ReposPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-gray-800 hover:border-CodeSensor-Primary/50 bg-transparent"
+                      className="border-gray-800 hover:border-CodeSensor-Primary/50 bg-transparent text-white"
                       onClick={() => window.open(repo.html_url, '_blank')}
                     >
                       <ExternalLink className="w-4 h-4" />

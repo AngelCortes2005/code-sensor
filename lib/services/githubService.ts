@@ -1,5 +1,5 @@
 import { createOctokit } from '@/lib/github';
-import { supabase } from '@/lib/supabase/supabaseClient';
+import { supabaseAdmin } from '@/lib/supabase/serverClient';
 
 export class GitHubService {
   private octokit;
@@ -11,7 +11,7 @@ export class GitHubService {
   }
 
   /**
-   * Sincroniza los repositorios del usuario de GitHub con Supabase
+   * Syncs user repositories from GitHub to Supabase
    */
   async syncRepositories() {
     try {
@@ -42,7 +42,7 @@ export class GitHubService {
       }));
 
       // Insertar/Actualizar en Supabase
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('repositories')
         .upsert(reposToInsert, {
           onConflict: 'github_id',
@@ -67,11 +67,11 @@ export class GitHubService {
   }
 
   /**
-   * Obtiene los repositorios del usuario desde Supabase
+   * Gets user repositories from Supabase
    */
   async getRepositories() {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('repositories')
         .select('*')
         .eq('user_id', this.userId)
@@ -91,7 +91,7 @@ export class GitHubService {
    */
   async getRepository(repoId: number) {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('repositories')
         .select('*')
         .eq('id', repoId)

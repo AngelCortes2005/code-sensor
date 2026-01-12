@@ -28,7 +28,7 @@ export async function GET(
     }
 
     const githubService = new GitHubService(
-      session.accessToken,
+      session.accessToken as string,
       session.user.id
     );
 
@@ -41,10 +41,7 @@ export async function GET(
       );
     }
 
-    return NextResponse.json({ 
-      success: true,
-      data: repository
-    });
+    return NextResponse.json(repository);
 
   } catch (error) {
     console.error('Fetch repository error:', error);

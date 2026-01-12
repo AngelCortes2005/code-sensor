@@ -141,7 +141,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-white">Recent Repositories</h2>
             <Link href="/dashboard/repos">
-              <Button variant="outline" className="border-gray-800 hover:border-CodeSensor-Primary/50 bg-transparent">
+              <Button variant="outline" className="border-gray-800 hover:border-CodeSensor-Primary/50 bg-transparent text-white">
                 View All
               </Button>
             </Link>
