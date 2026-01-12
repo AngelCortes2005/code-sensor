@@ -119,7 +119,7 @@ const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
       >
         <div className="flex flex-col items-center gap-2 animate-bounce">
           <span className="text-xs text-gray-500 uppercase tracking-widest">Scroll</span>
