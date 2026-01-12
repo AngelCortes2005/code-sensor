@@ -35,7 +35,7 @@ export default function SignInPage() {
       {/* Background effects */}
       <div className="absolute inset-0 bg-grid-white/[0.02]" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-CodeSensor-Primary/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#019A8E]/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-CodeSensor-Secondary/20 rounded-full blur-3xl" />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -49,7 +49,7 @@ export default function SignInPage() {
             {/* Logo */}
             <Link href="/" className="flex items-center justify-center gap-3 group w-fit">
               <div className="relative w-16 h-16 flex justify-center items-center">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary rounded-xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary rounded-xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-300" />
                 <Image 
                   src="/CodeSensorLogo.webp" 
                   alt="CodeSensor Logo" 
@@ -60,7 +60,7 @@ export default function SignInPage() {
               </div>
               <span className="text-3xl font-bold text-white">
                 Code
-                <span className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary bg-clip-text text-transparent">
                   Sensor
                 </span>
               </span>
@@ -70,7 +70,7 @@ export default function SignInPage() {
             <div className="space-y-4">
               <h1 className="text-5xl md:text-6xl font-bold leading-tight">
                 <span className="text-white">Welcome to </span>
-                <span className="block bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary bg-clip-text text-transparent">
                   CodeSensor
                 </span>
               </h1>
@@ -90,7 +90,7 @@ export default function SignInPage() {
                   transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
                   className="flex items-start gap-4"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#019A8E]/20 to-CodeSensor-Primary/20 border border-CodeSensor-Primary/30 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-CodeSensor-Secondary/20 to-CodeSensor-Primary/20 border border-CodeSensor-Primary/30 flex items-center justify-center flex-shrink-0">
                     <feature.icon className="w-5 h-5 text-CodeSensor-Primary" />
                   </div>
                   <div>
@@ -114,7 +114,7 @@ export default function SignInPage() {
             className="relative"
           >
             <div className="relative overflow-hidden rounded-3xl border border-gray-800/50">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#019A8E]/10 via-CodeSensor-Primary/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-CodeSensor-Secondary/10 via-CodeSensor-Primary/10 to-transparent" />
               
               <div className="relative backdrop-blur-xl bg-gradient-to-br from-gray-900/80 to-black/80 p-8 md:p-12">
                 {/* Card Header */}
@@ -163,7 +163,7 @@ export default function SignInPage() {
                     'Revoke access anytime',
                   ].map((benefit, index) => (
                     <div key={index} className="flex items-center gap-3 text-sm text-gray-400">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary flex items-center justify-center flex-shrink-0">
+                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary flex items-center justify-center flex-shrink-0">
                         <svg className="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
@@ -189,7 +189,7 @@ export default function SignInPage() {
 
             {/* Decorative elements */}
             <div className="absolute -top-4 -right-4 w-24 h-24 bg-CodeSensor-Primary/20 rounded-full blur-2xl animate-pulse" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-[#019A8E]/20 rounded-full blur-2xl animate-pulse" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-CodeSensor-Secondary/20 rounded-full blur-2xl animate-pulse" />
           </motion.div>
         </div>
       </div>

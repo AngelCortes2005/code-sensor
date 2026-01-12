@@ -198,7 +198,7 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
                 <Button
                   onClick={handleAnalyze}
                   disabled={analyzing}
-                  className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90"
+                  className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90"
                 >
                   {analyzing ? (
                     <>
@@ -264,12 +264,12 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
               <Button
                 onClick={handleAnalyze}
                 disabled={analyzing}
-                className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90"
+                className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90"
               >
                 {analyzing ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Analizando...
+                    Analyzing...
                   </>
                 ) : (
                   <>

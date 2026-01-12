@@ -90,8 +90,8 @@ const MainHeader = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group relative z-10">
             <div className="relative w-11 h-11 md:w-12 md:h-12">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary rounded-xl opacity-20 blur-lg group-hover:opacity-40 group-hover:blur-xl transition-all duration-500" />
-              <div className="relative w-full h-full bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary rounded-xl p-0.5">
+              <div className="absolute inset-0 bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary rounded-xl opacity-20 blur-lg group-hover:opacity-40 group-hover:blur-xl transition-all duration-500" />
+              <div className="relative w-full h-full bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary rounded-xl p-0.5">
                 <div className="w-full h-full bg-black rounded-[10px] flex items-center justify-center overflow-hidden">
                   <Image 
                     src="/CodeSensorLogo.webp" 
@@ -104,7 +104,7 @@ const MainHeader = () => {
               </div>
             </div>
             <div className="hidden sm:block">
-              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent group-hover:from-[#019A8E] group-hover:via-CodeSensor-Primary group-hover:to-[#00FE74] transition-all duration-500">
+              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent group-hover:from-CodeSensor-Secondary group-hover:via-CodeSensor-Primary group-hover:to-CodeSensor-Primary transition-all duration-500">
                 CodeSensor
               </span>
             </div>
@@ -121,7 +121,7 @@ const MainHeader = () => {
                   className="relative px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 group"
                 >
                   {item.name}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary group-hover:w-4/5 transition-all duration-300" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary group-hover:w-4/5 transition-all duration-300" />
                 </a>
               ))}
             </nav>
@@ -147,7 +147,7 @@ const MainHeader = () => {
                   <DropdownMenuTrigger className="hidden md:flex items-center gap-2 px-3 py-2 rounded-full hover:bg-white/5 transition-all duration-300 outline-none">
                     <Avatar className="w-8 h-8 border-2 border-CodeSensor-Primary/50">
                       <AvatarImage src={session.user?.image || undefined} />
-                      <AvatarFallback className="bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary text-black text-sm font-bold">
+                      <AvatarFallback className="bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary text-black text-sm font-bold">
                         {getUserInitials()}
                       </AvatarFallback>
                     </Avatar>
@@ -186,8 +186,8 @@ const MainHeader = () => {
                 onClick={handleGetStarted}
                 className="hidden md:flex items-center gap-2 relative group overflow-hidden px-6 py-2.5 rounded-full font-semibold transition-all duration-300 hover:scale-105"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary" />
-                <div className="absolute inset-0 bg-gradient-to-r from-CodeSensor-Primary to-[#00FE74] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary" />
+                <div className="absolute inset-0 bg-gradient-to-r from-CodeSensor-Primary to-CodeSensor-Primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10 text-black font-medium">Get Started</span>
                 <ArrowRight className="relative z-10 w-4 h-4 text-black group-hover:translate-x-1 transition-transform duration-300" />
               </button>
@@ -212,7 +212,7 @@ const MainHeader = () => {
                       <div className="flex items-center gap-3">
                         <Avatar className="w-10 h-10 border-2 border-CodeSensor-Primary/50">
                           <AvatarImage src={session.user?.image || undefined} />
-                          <AvatarFallback className="bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary text-black text-sm font-bold">
+                          <AvatarFallback className="bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary text-black text-sm font-bold">
                             {getUserInitials()}
                           </AvatarFallback>
                         </Avatar>
@@ -223,7 +223,7 @@ const MainHeader = () => {
                       </div>
                     ) : (
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary rounded-lg" />
+                        <div className="w-8 h-8 bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary rounded-lg" />
                         <span className="text-lg font-bold text-white">CodeSensor</span>
                       </div>
                     )}
@@ -288,8 +288,8 @@ const MainHeader = () => {
                           }}
                           className="w-full relative group overflow-hidden px-6 py-3.5 rounded-xl font-bold transition-all duration-300"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary" />
-                          <div className="absolute inset-0 bg-gradient-to-r from-CodeSensor-Primary to-[#00FE74] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-CodeSensor-Primary to-CodeSensor-Primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           <span className="relative z-10 text-black flex items-center justify-center gap-2">
                             Get Started Free
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

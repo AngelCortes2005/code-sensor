@@ -79,7 +79,7 @@ export default function DashboardPage() {
         <Button
           onClick={handleSync}
           disabled={syncing || loading}
-          className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90 transition-all shadow-lg hover:shadow-CodeSensor-Primary/50"
+          className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90 transition-all shadow-lg hover:shadow-CodeSensor-Primary/50"
         >
           <RefreshCw className={`w-4 h-4 mr-2 ${syncing ? 'animate-spin' : ''}`} />
           {syncing ? 'Syncing...' : 'Sync Repositories'}
@@ -154,7 +154,7 @@ export default function DashboardPage() {
                 href={`/dashboard/repos/${repo.id}`}
                 className="group relative backdrop-blur-xl bg-gradient-to-br from-gray-900/90 to-black/90 border border-gray-800 rounded-xl p-6 hover:border-CodeSensor-Primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-CodeSensor-Primary/10"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#019A8E]/0 to-CodeSensor-Primary/0 group-hover:from-[#019A8E]/5 group-hover:to-CodeSensor-Primary/5 rounded-xl transition-all duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-br from-CodeSensor-Secondary/0 to-CodeSensor-Primary/0 group-hover:from-CodeSensor-Secondary/5 group-hover:to-CodeSensor-Primary/5 rounded-xl transition-all duration-300" />
                 
                 <div className="relative space-y-4">
                   {/* Header */}
@@ -227,7 +227,7 @@ export default function DashboardPage() {
             <Button 
               onClick={handleSync} 
               disabled={syncing}
-              className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90"
+              className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${syncing ? 'animate-spin' : ''}`} />
               Sync Now

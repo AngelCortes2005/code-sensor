@@ -148,16 +148,16 @@ export async function analyzeCodeSnippet(
 ): Promise<string> {
   try {
     const focus = focusArea || 'general';
-    const prompt = `Analiza este fragmento de código ${language} enfocándote en ${focus}. Proporciona feedback específico y recomendaciones:
+    const prompt = `Analyze this ${language} code snippet focusing on ${focus}. Provide specific feedback and recommendations:
 
 \`\`\`${language}
 ${code}
 \`\`\`
 
-Responde con:
-1. Problemas encontrados
-2. Recomendaciones específicas
-3. Código mejorado si aplica`;
+Respond with:
+1. Issues found
+2. Specific recommendations
+3. Improved code if applicable`;
 
     const completion = await groq.chat.completions.create({
       messages: [

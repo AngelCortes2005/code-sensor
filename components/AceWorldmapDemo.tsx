@@ -6,7 +6,7 @@ import { Globe, Zap, Users, MapPin, TrendingUp, Shield } from "lucide-react";
 
 const stats = [
   { icon: MapPin, value: '150+', label: 'Countries', color: 'from-blue-500 to-cyan-500' },
-  { icon: Zap, value: '<100ms', label: 'Latency', color: 'from-[#019A8E] to-CodeSensor-Primary' },
+  { icon: Zap, value: '<100ms', label: 'Latency', color: 'from-CodeSensor-Secondary to-CodeSensor-Primary' },
   { icon: Users, value: '10K+', label: 'Users', color: 'from-purple-500 to-pink-500' },
 ];
 
@@ -33,7 +33,7 @@ export default function AceWorldMapDemo() {
     <section id="how-it-works" className="relative py-32 px-4 overflow-hidden">
       {/* Background effects */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-CodeSensor-Primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#019A8E]/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-CodeSensor-Secondary/10 rounded-full blur-3xl" />
       
       <div className="max-w-7xl mx-auto relative">
         {/* Grid Layout */}
@@ -54,7 +54,7 @@ export default function AceWorldMapDemo() {
             {/* Title */}
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
               <span className="block text-white">Remote</span>
-              <span className="block bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary bg-clip-text text-transparent">
                 Connectivity
               </span>
             </h2>
@@ -99,7 +99,7 @@ export default function AceWorldMapDemo() {
                   transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
                   className="flex items-start gap-4 group"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#019A8E]/20 to-CodeSensor-Primary/20 border border-CodeSensor-Primary/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-CodeSensor-Secondary/20 to-CodeSensor-Primary/20 border border-CodeSensor-Primary/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
                     <feature.icon className="w-5 h-5 text-CodeSensor-Primary" />
                   </div>
                   <div>
@@ -125,7 +125,7 @@ export default function AceWorldMapDemo() {
           >
             <div className="relative">
               {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#019A8E]/20 to-CodeSensor-Primary/20 rounded-3xl blur-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-r from-CodeSensor-Secondary/20 to-CodeSensor-Primary/20 rounded-3xl blur-2xl" />
               
               {/* Map Container */}
               <div className="relative rounded-3xl overflow-hidden border border-gray-800/50 bg-black/40 backdrop-blur-sm p-6">
@@ -163,7 +163,7 @@ export default function AceWorldMapDemo() {
 
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-CodeSensor-Primary/20 rounded-full blur-2xl animate-pulse" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-[#019A8E]/20 rounded-full blur-2xl animate-pulse" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-CodeSensor-Secondary/20 rounded-full blur-2xl animate-pulse" />
             </div>
           </motion.div>
         </div>

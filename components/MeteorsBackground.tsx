@@ -53,7 +53,7 @@ const MeteorBackground: React.FC = () => {
             w-[3px] 
             h-[120px] 
             rounded-full
-            bg-linear-to-b 
+            bg-gradient-to-b 
             from-white/90 
             via-white/40 
             to-transparent

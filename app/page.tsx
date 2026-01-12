@@ -10,6 +10,10 @@ import Features from "@/components/Features";
 import SecurityFeature from "@/components/SecurityFeature";
 import Footer from "@/components/layout/Footer";
 import CTASection from "@/components/CTASection";
+import HowItWorks from "@/components/HowItWorks";
+import EnhancedStats from "@/components/EnhancedStats";
+import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -42,10 +46,30 @@ export default function Home() {
         <MainHeader />
         <HeroSection />
         
+        {/* Trust Section */}
+        <EnhancedStats />
+        
+        {/* Features Section */}
         <Features/>
+        
+        {/* How It Works */}
+        <HowItWorks />
+        
+        {/* Visual Demo */}
         <AceWorldmapDemo />
+        
+        {/* Security Features */}
         <SecurityFeature />
+        
+        {/* Testimonials */}
+        <Testimonials />
+        
+        {/* FAQ */}
+        <FAQ />
+        
+        {/* CTA */}
         <CTASection />
+        
         <Footer />
       </div>
     </div>

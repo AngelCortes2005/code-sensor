@@ -39,7 +39,7 @@ export default function NotFound() {
           top: `${mousePosition.y - 192}px`,
         }}
       />
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#019A8E]/20 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-CodeSensor-Secondary/20 rounded-full blur-3xl" />
 
       {/* Floating code snippets */}
       {codeSnippets.map((snippet, index) => (
@@ -88,7 +88,7 @@ export default function NotFound() {
               }}
               className="text-[150px] md:text-[250px] font-bold leading-none"
             >
-              <span className="bg-gradient-to-r from-[#019A8E] via-CodeSensor-Primary to-[#019A8E] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-CodeSensor-Secondary via-CodeSensor-Primary to-CodeSensor-Secondary bg-clip-text text-transparent">
                 404
               </span>
             </motion.div>
@@ -102,7 +102,7 @@ export default function NotFound() {
             <motion.div
               animate={{ rotate: -360 }}
               transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              className="absolute -bottom-8 -left-8 w-20 h-20 border-2 border-dashed border-[#019A8E]/30 rounded-full"
+              className="absolute -bottom-8 -left-8 w-20 h-20 border-2 border-dashed border-CodeSensor-Secondary/30 rounded-full"
             />
           </div>
         </motion.div>
@@ -187,7 +187,7 @@ export default function NotFound() {
           <Button
             asChild
             size="lg"
-            className="group relative overflow-hidden bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:shadow-[0_0_40px_rgba(0,254,116,0.3)] px-8 py-6 text-lg font-semibold transition-all duration-300"
+            className="group relative overflow-hidden bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:shadow-[0_0_40px_rgba(0,254,116,0.3)] px-8 py-6 text-lg font-semibold transition-all duration-300"
           >
             <Link href="/">
               <Home className="mr-2 w-5 h-5" />

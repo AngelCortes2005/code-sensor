@@ -77,7 +77,7 @@ function ErrorContent() {
 					<Button
 						asChild
 						size="lg"
-						className="w-full bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90"
+						className="w-full bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90"
 					>
 						<Link href="/signin">
 							<RefreshCw className="w-5 h-5 mr-2" />

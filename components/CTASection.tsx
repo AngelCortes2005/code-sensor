@@ -29,18 +29,18 @@ export default function CTASection() {
   return (
     <section className="relative py-24 px-4 overflow-hidden">
       {/* Background effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#019A8E]/20 to-CodeSensor-Primary/20 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-CodeSensor-Secondary/20 to-CodeSensor-Primary/20 rounded-full blur-3xl" />
       
       <div className="max-w-7xl mx-auto relative">
         <div className="relative overflow-hidden rounded-3xl">
           {/* Gradient border */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#019A8E] via-CodeSensor-Primary to-[#019A8E] opacity-50" />
+          <div className="absolute inset-0 bg-gradient-to-br from-CodeSensor-Secondary via-CodeSensor-Primary to-CodeSensor-Secondary opacity-50" />
           
           {/* Main content container */}
           <div className="relative m-[2px] rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
             {/* Animated grid background */}
             <div className="absolute inset-0 bg-grid-white/[0.02]" />
-            <div className="absolute inset-0 bg-gradient-to-br from-[#019A8E]/5 via-CodeSensor-Primary/5 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-CodeSensor-Secondary/5 via-CodeSensor-Primary/5 to-transparent" />
             
             {/* Grid Layout */}
             <div className="relative grid lg:grid-cols-2 gap-12 p-8 md:p-12 lg:p-16">
@@ -61,7 +61,7 @@ export default function CTASection() {
                 {/* Title */}
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                   <span className="text-white">Ready to </span>
-                  <span className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary bg-clip-text text-transparent">
                     secure
                   </span>
                   <span className="text-white"> your code?</span>
@@ -84,7 +84,7 @@ export default function CTASection() {
                       transition={{ delay: index * 0.1, duration: 0.5 }}
                       className="flex items-center gap-3"
                     >
-                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary flex items-center justify-center flex-shrink-0">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary flex items-center justify-center shrink-0">
                         <Check className="w-4 h-4 text-black" />
                       </div>
                       <span className="text-gray-300">{benefit}</span>
@@ -97,7 +97,7 @@ export default function CTASection() {
                   <Button 
                     size="lg" 
                     onClick={handleGetStarted}
-                    className="group relative overflow-hidden bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:shadow-[0_0_40px_rgba(0,254,116,0.3)] px-8 py-6 text-lg font-semibold transition-all duration-300"
+                    className="group relative overflow-hidden bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:shadow-[0_0_40px_rgba(0,254,116,0.3)] px-8 py-6 text-lg font-semibold transition-all duration-300"
                   >
                     <span className="relative z-10 flex items-center text-black">
                       Get Started Now
@@ -144,7 +144,7 @@ export default function CTASection() {
                       transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
                       className="group relative"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#019A8E]/20 to-CodeSensor-Primary/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-CodeSensor-Secondary/20 to-CodeSensor-Primary/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
                       <div className="relative backdrop-blur-xl bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800 p-6 rounded-2xl group-hover:border-CodeSensor-Primary/50 transition-all duration-300">
                         <div className="text-3xl mb-2">{stat.icon}</div>
                         <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
@@ -185,7 +185,7 @@ export default function CTASection() {
 
             {/* Decorative elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-CodeSensor-Primary/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#019A8E]/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-CodeSensor-Secondary/10 rounded-full blur-3xl" />
           </div>
         </div>
       </div>
