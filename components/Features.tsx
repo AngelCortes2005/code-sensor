@@ -55,7 +55,7 @@ export default function FeaturesGrid() {
             <span className="text-sm font-medium text-CodeSensor-Primary">Features</span>
           </div>
           
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">
             Everything you need to{" "}
             <span className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary bg-clip-text text-transparent">
               ship faster

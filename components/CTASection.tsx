@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Github, Sparkles, Check, Star } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const benefits = [
   'Instant code analysis',
@@ -12,6 +14,18 @@ const benefits = [
 ];
 
 export default function CTASection() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const handleGetStarted = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (status === 'authenticated') {
+      router.push('/dashboard');
+    } else {
+      router.push('/signin');
+    }
+  };
+
   return (
     <section className="relative py-24 px-4 overflow-hidden">
       {/* Background effects */}
@@ -82,22 +96,20 @@ export default function CTASection() {
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Button 
                     size="lg" 
+                    onClick={handleGetStarted}
                     className="group relative overflow-hidden bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:shadow-[0_0_40px_rgba(0,254,116,0.3)] px-8 py-6 text-lg font-semibold transition-all duration-300"
-                    asChild
                   >
-                    <Link href="/dashboard">
-                      <span className="relative z-10 flex items-center text-black">
-                        Get Started Now
-                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                    </Link>
+                    <span className="relative z-10 flex items-center text-black">
+                      Get Started Now
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                   </Button>
 
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="group border-2 border-gray-700 bg-transparent hover:bg-CodeSensor-Primary/5 hover:border-CodeSensor-Primary px-8 py-6 text-lg font-semibold transition-all duration-300"
+                    className="group border-2 border-gray-700 bg-transparent hover:bg-CodeSensor-Primary/5 hover:border-CodeSensor-Primary px-8 py-6 text-lg font-semibold transition-all duration-300 text-white"
                     asChild
                   >
                     <Link href="https://github.com" target="_blank">

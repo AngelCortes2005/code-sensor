@@ -4,13 +4,26 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { ArrowRight, Sparkles, Code2, Shield } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  const handleGetStarted = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (status === 'authenticated') {
+      router.push('/dashboard');
+    } else {
+      router.push('/signin');
+    }
+  };
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -59,6 +72,7 @@ const HeroSection = () => {
         >
           <Link
             href="/dashboard"
+            onClick={handleGetStarted}
             className="group relative px-8 py-4 bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary rounded-full font-semibold text-lg text-black overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,254,116,0.4)] hover:scale-105"
           >
             <span className="relative z-10 flex items-center gap-2">
