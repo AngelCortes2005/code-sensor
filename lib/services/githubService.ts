@@ -71,15 +71,53 @@ export class GitHubService {
    */
   async getRepositories() {
     try {
-      const { data, error } = await supabaseAdmin
+      // Get repositories with their latest analysis
+      const { data: repos, error: reposError } = await supabaseAdmin
         .from('repositories')
         .select('*')
         .eq('user_id', this.userId)
         .order('stars', { ascending: false });
 
-      if (error) throw error;
+      if (reposError) throw reposError;
 
-      return data || [];
+      if (!repos || repos.length === 0) {
+        return [];
+      }
+
+      // Get latest analysis for each repository
+      const repoIds = repos.map(r => r.id);
+      const { data: analyses, error: analysesError } = await supabaseAdmin
+        .from('repository_analyses')
+        .select('repository_id, overall_score, quality_score, security_score, structure_score, analysis_data, created_at')
+        .in('repository_id', repoIds)
+        .order('created_at', { ascending: false });
+
+      if (analysesError) {
+        console.error('Error fetching analyses:', analysesError);
+        // Continue without analyses
+      }
+
+      // Map latest analysis to each repository
+      const analysisMap = new Map();
+      if (analyses) {
+        analyses.forEach(analysis => {
+          if (!analysisMap.has(analysis.repository_id)) {
+            analysisMap.set(analysis.repository_id, analysis);
+          }
+        });
+      }
+
+      // Combine repos with their latest analysis
+      const reposWithAnalysis = repos.map(repo => {
+        const latestAnalysis = analysisMap.get(repo.id);
+        return {
+          ...repo,
+          latest_score: latestAnalysis?.overall_score,
+          latest_analysis: latestAnalysis || undefined,
+        };
+      });
+
+      return reposWithAnalysis;
     } catch (error) {
       console.error('Error fetching repositories:', error);
       throw error;

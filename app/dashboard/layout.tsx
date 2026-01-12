@@ -1,5 +1,6 @@
 import React from 'react'
 import DashboardSideBar from '../../components/layout/DashboardSideBar';
+import { NewFeaturesNotification } from '@/components/NewFeaturesNotification';
 
 export default function Layout({children}: {children: React.ReactNode}) {
   return (
@@ -10,6 +11,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
           {children}
         </main>
       </div>
+      <NewFeaturesNotification />
     </div>
   )
 }

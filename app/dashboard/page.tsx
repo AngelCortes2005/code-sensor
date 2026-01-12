@@ -2,14 +2,20 @@
 
 import { useSession } from 'next-auth/react';
 import { useRepositories } from '@/hooks/useRepositories';
+import { useAnalytics } from '@/hooks/useAnalytics';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TrendChart } from '@/components/TrendChart';
+import { TopRepositories } from '@/components/TopRepositories';
+import { ActivityHeatmap } from '@/components/ActivityHeatmap';
+import { MonthlyMetrics } from '@/components/MonthlyMetrics';
 import { RefreshCw, Github, Star, GitFork, Lock, TrendingUp, Code, Eye } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
   const { data: session } = useSession();
   const { repositories, loading, syncing, syncRepositories, error } = useRepositories();
+  const { analytics, loading: analyticsLoading } = useAnalytics();
 
   if (!session) {
     return (
@@ -79,7 +85,7 @@ export default function DashboardPage() {
         <Button
           onClick={handleSync}
           disabled={syncing || loading}
-          className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90 transition-all shadow-lg hover:shadow-CodeSensor-Primary/50"
+          className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90 transition-all shadow-lg hover:shadow-CodeSensor-Primary/50"
         >
           <RefreshCw className={`w-4 h-4 mr-2 ${syncing ? 'animate-spin' : ''}`} />
           {syncing ? 'Syncing...' : 'Sync Repositories'}
@@ -119,6 +125,27 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {/* Analytics Section */}
+      {!loading && !analyticsLoading && analytics && repositories.length > 0 && (
+        <div className="space-y-6">
+          {/* Top Row: Trend Chart & Monthly Metrics */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <TrendChart data={analytics.trends} />
+            </div>
+            <div>
+              <MonthlyMetrics data={analytics.monthlyMetrics} />
+            </div>
+          </div>
+
+          {/* Second Row: Top Repositories & Activity Heatmap */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <TopRepositories repositories={analytics.topRepositories} />
+            <ActivityHeatmap data={analytics.activityHeatmap} />
+          </div>
+        </div>
+      )}
+
       {/* Loading State */}
       {loading && (
         <div className="space-y-6">
@@ -154,7 +181,7 @@ export default function DashboardPage() {
                 href={`/dashboard/repos/${repo.id}`}
                 className="group relative backdrop-blur-xl bg-gradient-to-br from-gray-900/90 to-black/90 border border-gray-800 rounded-xl p-6 hover:border-CodeSensor-Primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-CodeSensor-Primary/10"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#019A8E]/0 to-CodeSensor-Primary/0 group-hover:from-[#019A8E]/5 group-hover:to-CodeSensor-Primary/5 rounded-xl transition-all duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-br from-CodeSensor-Secondary/0 to-CodeSensor-Primary/0 group-hover:from-CodeSensor-Secondary/5 group-hover:to-CodeSensor-Primary/5 rounded-xl transition-all duration-300" />
                 
                 <div className="relative space-y-4">
                   {/* Header */}
@@ -227,7 +254,7 @@ export default function DashboardPage() {
             <Button 
               onClick={handleSync} 
               disabled={syncing}
-              className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90"
+              className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${syncing ? 'animate-spin' : ''}`} />
               Sync Now

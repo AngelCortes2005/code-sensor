@@ -1,0 +1,331 @@
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+interface Analysis {
+  quality_score: number;
+  security_score: number;
+  structure_score: number;
+  overall_score: number;
+  analysis_data: any;
+  created_at: string;
+}
+
+interface Repository {
+  name: string;
+  full_name: string;
+  description: string | null;
+  language: string | null;
+}
+
+export async function exportToPDF(
+  repository: Repository,
+  analysis: Analysis
+): Promise<void> {
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  let currentY = 20;
+
+  // Header
+  pdf.setFillColor(1, 154, 142);
+  pdf.rect(0, 0, pageWidth, 30, 'F');
+  
+  pdf.setTextColor(255, 255, 255);
+  pdf.setFontSize(24);
+  pdf.text('CodeSensor', 15, 15);
+  
+  pdf.setFontSize(12);
+  pdf.text('AI-Powered Code Analysis Report', 15, 23);
+
+  currentY = 40;
+
+  // Repository Info
+  pdf.setTextColor(0, 0, 0);
+  pdf.setFontSize(18);
+  pdf.text('Repository Analysis', 15, currentY);
+  currentY += 10;
+
+  pdf.setFontSize(12);
+  pdf.setFont('helvetica', 'bold');
+  pdf.text(repository.full_name, 15, currentY);
+  currentY += 7;
+
+  pdf.setFont('helvetica', 'normal');
+  pdf.setFontSize(10);
+  if (repository.description) {
+    const descLines = pdf.splitTextToSize(repository.description, pageWidth - 30);
+    pdf.text(descLines, 15, currentY);
+    currentY += (descLines.length * 5) + 5;
+  }
+
+  if (repository.language) {
+    pdf.text(`Language: ${repository.language}`, 15, currentY);
+    currentY += 7;
+  }
+
+  const date = new Date(analysis.created_at).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  pdf.text(`Analysis Date: ${date}`, 15, currentY);
+  currentY += 15;
+
+  // Scores Section
+  pdf.setFontSize(16);
+  pdf.setFont('helvetica', 'bold');
+  pdf.text('Quality Scores', 15, currentY);
+  currentY += 10;
+
+  // Score bars
+  const scores = [
+    { label: 'Overall Score', value: analysis.overall_score, color: [0, 254, 116] },
+    { label: 'Code Quality', value: analysis.quality_score, color: [59, 130, 246] },
+    { label: 'Security', value: analysis.security_score, color: [239, 68, 68] },
+    { label: 'Structure', value: analysis.structure_score, color: [168, 85, 247] },
+  ];
+
+  scores.forEach((score) => {
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(11);
+    pdf.text(`${score.label}: ${score.value}/100`, 15, currentY);
+    
+    // Progress bar background
+    pdf.setFillColor(230, 230, 230);
+    pdf.rect(80, currentY - 4, 100, 5, 'F');
+    
+    // Progress bar fill
+    pdf.setFillColor(score.color[0], score.color[1], score.color[2]);
+    pdf.rect(80, currentY - 4, score.value, 5, 'F');
+    
+    currentY += 10;
+  });
+
+  currentY += 10;
+
+  // Issues Section
+  if (analysis.analysis_data?.quality?.issues?.length > 0) {
+    if (currentY > pageHeight - 40) {
+      pdf.addPage();
+      currentY = 20;
+    }
+
+    pdf.setFontSize(16);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Issues Found', 15, currentY);
+    currentY += 8;
+
+    pdf.setFontSize(10);
+    pdf.setFont('helvetica', 'normal');
+    
+    analysis.analysis_data.quality.issues.slice(0, 5).forEach((issue: string) => {
+      const lines = pdf.splitTextToSize(`• ${issue}`, pageWidth - 30);
+      
+      if (currentY + (lines.length * 5) > pageHeight - 20) {
+        pdf.addPage();
+        currentY = 20;
+      }
+      
+      pdf.text(lines, 20, currentY);
+      currentY += (lines.length * 5) + 3;
+    });
+  }
+
+  currentY += 10;
+
+  // Vulnerabilities Section
+  if (analysis.analysis_data?.security?.vulnerabilities?.length > 0) {
+    if (currentY > pageHeight - 40) {
+      pdf.addPage();
+      currentY = 20;
+    }
+
+    pdf.setFontSize(16);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Security Vulnerabilities', 15, currentY);
+    currentY += 8;
+
+    pdf.setFontSize(10);
+    pdf.setFont('helvetica', 'normal');
+    
+    analysis.analysis_data.security.vulnerabilities.slice(0, 5).forEach((vuln: any) => {
+      const severityColors: Record<string, number[]> = {
+        critical: [239, 68, 68],
+        high: [249, 115, 22],
+        medium: [234, 179, 8],
+        low: [59, 130, 246],
+      };
+      const severityColor = severityColors[vuln.severity] || [156, 163, 175];
+
+      pdf.setFillColor(severityColor[0], severityColor[1], severityColor[2]);
+      pdf.circle(18, currentY - 1, 1.5, 'F');
+      
+      const lines = pdf.splitTextToSize(`${vuln.description}`, pageWidth - 35);
+      
+      if (currentY + (lines.length * 5) > pageHeight - 20) {
+        pdf.addPage();
+        currentY = 20;
+      }
+      
+      pdf.text(lines, 22, currentY);
+      currentY += (lines.length * 5) + 3;
+    });
+  }
+
+  // Footer
+  const totalPages = pdf.getNumberOfPages();
+  for (let i = 1; i <= totalPages; i++) {
+    pdf.setPage(i);
+    pdf.setFontSize(8);
+    pdf.setTextColor(150, 150, 150);
+    pdf.text(
+      `Generated by CodeSensor - Page ${i} of ${totalPages}`,
+      pageWidth / 2,
+      pageHeight - 10,
+      { align: 'center' }
+    );
+  }
+
+  // Save PDF
+  pdf.save(`${repository.name}-analysis-report.pdf`);
+}
+
+export function exportToMarkdown(
+  repository: Repository,
+  analysis: Analysis
+): string {
+  const date = new Date(analysis.created_at).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  let markdown = `# 📊 CodeSensor Analysis Report
+
+## Repository: ${repository.full_name}
+
+${repository.description ? `> ${repository.description}\n` : ''}
+
+**Language:** ${repository.language || 'N/A'}  
+**Analysis Date:** ${date}
+
+---
+
+## 🎯 Quality Scores
+
+| Metric | Score | Status |
+|--------|-------|--------|
+| 🏆 **Overall Score** | **${analysis.overall_score}/100** | ${getScoreEmoji(analysis.overall_score)} |
+| 📝 Code Quality | ${analysis.quality_score}/100 | ${getScoreEmoji(analysis.quality_score)} |
+| 🔒 Security | ${analysis.security_score}/100 | ${getScoreEmoji(analysis.security_score)} |
+| 🏗️ Structure | ${analysis.structure_score}/100 | ${getScoreEmoji(analysis.structure_score)} |
+
+`;
+
+  // Quality Summary
+  if (analysis.analysis_data?.quality?.summary) {
+    markdown += `## 📋 Quality Summary
+
+${analysis.analysis_data.quality.summary}
+
+`;
+  }
+
+  // Issues
+  if (analysis.analysis_data?.quality?.issues?.length > 0) {
+    markdown += `## ⚠️ Issues Found
+
+${analysis.analysis_data.quality.issues.map((issue: string) => `- ${issue}`).join('\n')}
+
+`;
+  }
+
+  // Strengths
+  if (analysis.analysis_data?.quality?.strengths?.length > 0) {
+    markdown += `## ✅ Strengths
+
+${analysis.analysis_data.quality.strengths.map((strength: string) => `- ${strength}`).join('\n')}
+
+`;
+  }
+
+  // Security Vulnerabilities
+  if (analysis.analysis_data?.security?.vulnerabilities?.length > 0) {
+    markdown += `## 🔐 Security Vulnerabilities
+
+${analysis.analysis_data.security.vulnerabilities.map((vuln: any) => {
+  const emojiMap: Record<string, string> = {
+    critical: '🔴',
+    high: '🟠',
+    medium: '🟡',
+    low: '🔵',
+  };
+  const emoji = emojiMap[vuln.severity] || '⚪';
+  
+  return `### ${emoji} ${vuln.severity.toUpperCase()}: ${vuln.description}
+
+**Recommendation:** ${vuln.recommendation}
+`;
+}).join('\n')}
+
+`;
+  }
+
+  // Recommendations
+  if (analysis.analysis_data?.recommendations?.length > 0) {
+    markdown += `## 💡 Recommendations
+
+${analysis.analysis_data.recommendations.map((rec: any) => {
+  const priorityEmojiMap: Record<string, string> = {
+    high: '🔴',
+    medium: '🟡',
+    low: '🔵',
+  };
+  const priorityEmoji = priorityEmojiMap[rec.priority] || '⚪';
+  
+  return `### ${priorityEmoji} ${rec.category} (${rec.priority} priority)
+
+**Description:** ${rec.description}
+
+**Implementation:** ${rec.implementation}
+`;
+}).join('\n')}
+
+`;
+  }
+
+  // Summary
+  if (analysis.analysis_data?.summary) {
+    markdown += `## 📝 Overall Summary
+
+${analysis.analysis_data.summary}
+
+`;
+  }
+
+  markdown += `---
+
+*Report generated by [CodeSensor](https://codesensor.dev) - AI-Powered Code Analysis*
+`;
+
+  return markdown;
+}
+
+function getScoreEmoji(score: number): string {
+  if (score >= 90) return '🟢 Excellent';
+  if (score >= 70) return '🟡 Good';
+  if (score >= 50) return '🟠 Fair';
+  return '🔴 Needs Improvement';
+}
+
+export function downloadMarkdown(markdown: string, filename: string): void {
+  const blob = new Blob([markdown], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${filename}-analysis-report.md`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}

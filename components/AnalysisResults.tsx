@@ -219,7 +219,7 @@ export function AnalysisResults({ analysis }: AnalysisResultsProps) {
                   className="p-4 rounded-lg bg-gradient-to-br from-gray-900/50 to-black/50 border border-gray-800/50"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 mt-1">
+                    <div className="shrink-0 mt-1">
                       {vuln.severity === 'critical' || vuln.severity === 'high' ? (
                         <XCircle className="w-5 h-5 text-red-400" />
                       ) : (

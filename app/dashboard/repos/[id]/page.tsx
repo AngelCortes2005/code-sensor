@@ -1,10 +1,17 @@
 'use client';
 
 import { use, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AnalysisResults } from '@/components/AnalysisResults';
+import { DetailedRecommendations } from '@/components/DetailedRecommendations';
+import { ScoreComparison, ComparisonSummary, BeforeAfter } from '@/components/AnalysisComparison';
+import { AnalysisChart } from '@/components/AnalysisChart';
+import { ExportButton } from '@/components/ExportButton';
+import { BadgeGenerator } from '@/components/BadgeGenerator';
+import { WebhookSettings } from '@/components/WebhookSettings';
+import { useAnalysisComparison } from '@/hooks/useAnalysisComparison';
 import { 
   ArrowLeft, 
   Github, 
@@ -14,7 +21,8 @@ import {
   ExternalLink,
   Sparkles,
   Loader2,
-  RefreshCw
+  RefreshCw,
+  BarChart3
 } from 'lucide-react';
 
 interface Repository {
@@ -41,16 +49,37 @@ interface Analysis {
 
 export default function RepositoryDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const resolvedParams = use(params);
   const [repository, setRepository] = useState<Repository | null>(null);
   const [analyses, setAnalyses] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showComparison, setShowComparison] = useState(true);
+  const [selectedAnalysisId, setSelectedAnalysisId] = useState<number | null>(null);
+  
+  // Hook para comparación de análisis
+  const { comparison, loading: comparisonLoading } = useAnalysisComparison(resolvedParams.id);
 
   useEffect(() => {
     fetchRepositoryData();
   }, [resolvedParams.id]);
+
+  useEffect(() => {
+    // Check if there's an analysisId in the URL
+    const analysisIdFromUrl = searchParams.get('analysisId');
+    if (analysisIdFromUrl) {
+      setSelectedAnalysisId(parseInt(analysisIdFromUrl, 10));
+      // Scroll to analysis section after a short delay
+      setTimeout(() => {
+        const analysisSection = document.getElementById('analysis-section');
+        if (analysisSection) {
+          analysisSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300);
+    }
+  }, [searchParams, analyses]);
 
   const fetchRepositoryData = async () => {
     try {
@@ -135,6 +164,10 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
   }
 
   const latestAnalysis = analyses[0];
+  const displayedAnalysis = selectedAnalysisId 
+    ? analyses.find(a => a.id === selectedAnalysisId) || latestAnalysis
+    : latestAnalysis;
+  const isViewingPrevious = selectedAnalysisId !== null && selectedAnalysisId !== latestAnalysis?.id;
 
   return (
     <div className="p-6 md:p-8 lg:p-10 space-y-6">
@@ -198,7 +231,7 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
                 <Button
                   onClick={handleAnalyze}
                   disabled={analyzing}
-                  className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90"
+                  className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90"
                 >
                   {analyzing ? (
                     <>
@@ -212,6 +245,11 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
                     </>
                   )}
                 </Button>
+
+                {latestAnalysis && (
+                  <ExportButton repository={repository} analysis={latestAnalysis} />
+                )}
+
                 <Button
                   variant="outline"
                   onClick={() => window.open(repository.html_url, '_blank')}
@@ -236,20 +274,140 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
 
         {/* Analysis Results */}
         {latestAnalysis ? (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-white">Latest Analysis</h2>
-              <p className="text-sm text-gray-400">
-                {new Date(latestAnalysis.created_at).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
-              </p>
+          <div className="space-y-6" id="analysis-section">
+            {/* Back to Latest Button */}
+            {isViewingPrevious && (
+              <Card className="backdrop-blur-xl bg-blue-500/10 border-blue-500/50">
+                <CardContent className="p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <RefreshCw className="w-5 h-5 text-blue-400" />
+                    <div>
+                      <p className="text-sm font-medium text-white">Viewing previous analysis</p>
+                      <p className="text-xs text-gray-400">
+                        Analysis from {new Date(displayedAnalysis!.created_at).toLocaleDateString('en-US')}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    onClick={() => setSelectedAnalysisId(null)}
+                    variant="outline"
+                    size="sm"
+                    className="border-blue-500/50 hover:border-blue-500 bg-transparent text-blue-400"
+                  >
+                    View Latest Analysis
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Comparison Section */}
+            {comparison && comparison.previous && (
+              <>
+                {/* Toggle Button */}
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-CodeSensor-Primary" />
+                    Analysis Comparison
+                  </h2>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowComparison(!showComparison)}
+                    className="border-gray-800 hover:border-CodeSensor-Primary/50 bg-transparent"
+                  >
+                    {showComparison ? 'Hide' : 'Show'} Comparison
+                  </Button>
+                </div>
+
+                {showComparison && (
+                  <div className="space-y-6">
+                    {/* Comparison Summary */}
+                    <ComparisonSummary 
+                      improvements={comparison.improvements}
+                      trend={comparison.trend}
+                    />
+
+                    {/* Before/After Visual */}
+                    <BeforeAfter 
+                      previousScore={comparison.previous.overall_score}
+                      currentScore={comparison.current!.overall_score}
+                    />
+
+                    {/* Score Comparisons Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <ScoreComparison
+                        current={comparison.current!.overall_score}
+                        previous={comparison.previous.overall_score}
+                        label="Overall Score"
+                        color="from-CodeSensor-Secondary to-CodeSensor-Primary"
+                      />
+                      <ScoreComparison
+                        current={comparison.current!.quality_score}
+                        previous={comparison.previous.quality_score}
+                        label="Quality"
+                        color="from-blue-500 to-cyan-500"
+                      />
+                      <ScoreComparison
+                        current={comparison.current!.security_score}
+                        previous={comparison.previous.security_score}
+                        label="Security"
+                        color="from-red-500 to-orange-500"
+                      />
+                      <ScoreComparison
+                        current={comparison.current!.structure_score}
+                        previous={comparison.previous.structure_score}
+                        label="Structure"
+                        color="from-purple-500 to-pink-500"
+                      />
+                    </div>
+
+                    {/* Evolution Chart */}
+                    {comparison.history.length >= 2 && (
+                      <AnalysisChart history={comparison.history} />
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Latest Analysis Details */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold text-white">
+                  {isViewingPrevious ? 'Analysis Details' : 'Latest Analysis'}
+                </h2>
+                <p className="text-sm text-gray-400">
+                  {new Date(displayedAnalysis!.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </p>
+              </div>
+              <AnalysisResults analysis={displayedAnalysis!} />
             </div>
-            <AnalysisResults analysis={latestAnalysis} />
+
+            {/* Detailed Recommendations */}
+            {displayedAnalysis!.analysis_data?.recommendations && 
+             displayedAnalysis!.analysis_data.recommendations.length > 0 && (
+              <DetailedRecommendations 
+                recommendations={displayedAnalysis!.analysis_data.recommendations}
+              />
+            )}
+
+            {/* Badge Generator */}
+            <BadgeGenerator 
+              repositoryId={resolvedParams.id}
+              repositoryName={repository.name}
+            />
+
+            {/* Webhook Settings */}
+            <WebhookSettings
+              repositoryId={resolvedParams.id}
+              repositoryName={repository.name}
+            />
           </div>
         ) : (
           <Card className="backdrop-blur-xl bg-gradient-to-br from-gray-900/90 to-black/90 border-gray-800">
@@ -264,12 +422,12 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
               <Button
                 onClick={handleAnalyze}
                 disabled={analyzing}
-                className="bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary hover:opacity-90"
+                className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary hover:opacity-90"
               >
                 {analyzing ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Analizando...
+                    Analyzing...
                   </>
                 ) : (
                   <>
@@ -307,7 +465,8 @@ export default function RepositoryDetailPage({ params }: { params: Promise<{ id:
                       <Button
                         variant="outline"
                         size="sm"
-                        className="border-gray-800 hover:border-CodeSensor-Primary/50 bg-transparent"
+                        onClick={() => setSelectedAnalysisId(analysis.id)}
+                        className="border-gray-800 hover:border-CodeSensor-Primary/50 bg-transparent text-white"
                       >
                         View Details
                       </Button>

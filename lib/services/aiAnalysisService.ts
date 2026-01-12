@@ -29,6 +29,11 @@ export interface AnalysisResult {
     priority: 'high' | 'medium' | 'low';
     description: string;
     implementation: string;
+    resources?: Array<{
+      title: string;
+      url: string;
+    }>;
+    example?: string;
   }>;
   overall_score: number;
   summary: string;
@@ -65,7 +70,14 @@ You must respond ONLY with a valid JSON object that has EXACTLY this structure:
       "category": "<text>",
       "priority": "<high|medium|low>",
       "description": "<text>",
-      "implementation": "<text>"
+      "implementation": "<text>",
+      "resources": [
+        {
+          "title": "<resource title>",
+          "url": "<url>"
+        }
+      ],
+      "example": "<code example if applicable>"
     }
   ],
   "overall_score": <number 0-100>,
@@ -148,16 +160,16 @@ export async function analyzeCodeSnippet(
 ): Promise<string> {
   try {
     const focus = focusArea || 'general';
-    const prompt = `Analiza este fragmento de código ${language} enfocándote en ${focus}. Proporciona feedback específico y recomendaciones:
+    const prompt = `Analyze this ${language} code snippet focusing on ${focus}. Provide specific feedback and recommendations:
 
 \`\`\`${language}
 ${code}
 \`\`\`
 
-Responde con:
-1. Problemas encontrados
-2. Recomendaciones específicas
-3. Código mejorado si aplica`;
+Respond with:
+1. Issues found
+2. Specific recommendations
+3. Improved code if applicable`;
 
     const completion = await groq.chat.completions.create({
       messages: [

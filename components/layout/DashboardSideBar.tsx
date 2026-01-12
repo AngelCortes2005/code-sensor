@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import { Github, Database, Menu, X, LayoutDashboard, Activity } from "lucide-react";
+import { Github, Database, Menu, X, LayoutDashboard, Activity, GitCompare } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 const navItems = [
   { icon: <LayoutDashboard className="w-5 h-5" />, title: "Dashboard", href: "/dashboard" },
   { icon: <Github className="w-5 h-5" />, title: "Repositories", href: "/dashboard/repos" },
+  { icon: <GitCompare className="w-5 h-5" />, title: "Compare", href: "/dashboard/compare" },
   { icon: <Activity className="w-5 h-5" />, title: "History", href: "/dashboard/history" },
 ];
 
@@ -58,10 +59,10 @@ export default function DashboardSideBar() {
             {/* Header */}
             <div className="flex items-center justify-between px-3">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#019A8E] to-CodeSensor-Primary rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-CodeSensor-Secondary to-CodeSensor-Primary rounded-xl flex items-center justify-center">
                   <Github className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-[#019A8E] to-CodeSensor-Primary bg-clip-text text-transparent">
+                <span className="text-xl font-bold bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary bg-clip-text text-transparent">
                   CodeSensor
                 </span>
               </div>
@@ -84,7 +85,7 @@ export default function DashboardSideBar() {
                     onClick={() => window.innerWidth < 768 && setIsOpen(false)}
                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group
                       ${isActive 
-                        ? 'bg-gradient-to-r from-[#019A8E]/20 to-CodeSensor-Primary/20 text-white border border-CodeSensor-Primary/30' 
+                        ? 'bg-gradient-to-r from-CodeSensor-Secondary/20 to-CodeSensor-Primary/20 text-white border border-CodeSensor-Primary/30' 
                         : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
                       }`}
                   >
