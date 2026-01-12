@@ -1,12 +1,15 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Activity, Clock, GitCommit, TrendingUp, Calendar, Github, AlertCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Activity, Clock, GitCommit, TrendingUp, Calendar, Github, AlertCircle, ExternalLink } from 'lucide-react';
 import { useAnalyses } from '@/hooks/useAnalyses';
 import { formatDistanceToNow } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 export default function HistoryPage() {
+  const router = useRouter();
   const { analyses, stats, loading, error } = useAnalyses();
 
   // Transform analyses to activities
@@ -22,6 +25,7 @@ export default function HistoryPage() {
       id: analysis.id,
       type: 'analysis',
       repository: repo?.name || 'Unknown',
+      repositoryId: repo?.id,
       action: 'Code analysis completed',
       timestamp: formatDistanceToNow(new Date(analysis.created_at), { 
         addSuffix: true,
@@ -213,10 +217,20 @@ export default function HistoryPage() {
                       )}
                     </div>
 
-                    {/* Status Badge */}
-                    <div className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(activity.status)} border capitalize`}>
-                      {activity.status}
-                    </div>
+                    {/* Action Button */}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        if (activity.repositoryId) {
+                          router.push(`/dashboard/repos/${activity.repositoryId}?analysisId=${activity.id}`);
+                        }
+                      }}
+                      className="border-gray-800 hover:border-CodeSensor-Primary/50 bg-transparent text-white shrink-0"
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      View Details
+                    </Button>
                   </div>
                 ))}
               </div>
