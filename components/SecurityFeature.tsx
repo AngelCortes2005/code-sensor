@@ -45,7 +45,7 @@ export default function SecurityFeature() {
 							<span className="text-sm font-medium text-CodeSensor-Primary">Security</span>
 						</div>
 
-						<h2 className="text-5xl md:text-6xl font-bold mb-6">
+						<h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">
 							Security{" "}
 							<span className="bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary bg-clip-text text-transparent">
 								First Approach

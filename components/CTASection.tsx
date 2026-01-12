@@ -109,7 +109,7 @@ export default function CTASection() {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="group border-2 border-gray-700 bg-transparent hover:bg-CodeSensor-Primary/5 hover:border-CodeSensor-Primary px-8 py-6 text-lg font-semibold transition-all duration-300"
+                    className="group border-2 border-gray-700 bg-transparent hover:bg-CodeSensor-Primary/5 hover:border-CodeSensor-Primary px-8 py-6 text-lg font-semibold transition-all duration-300 text-white"
                     asChild
                   >
                     <Link href="https://github.com" target="_blank">
