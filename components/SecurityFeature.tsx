@@ -30,7 +30,7 @@ export default function SecurityFeature() {
 	return (
 		<section className="relative py-32 px-4 overflow-hidden">
 			{/* Background elements */}
-			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-CodeSensor-Primary/10 rounded-full blur-3xl" />
+			<div id="security" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-CodeSensor-Primary/10 rounded-full blur-3xl" />
 
 			<div className="max-w-7xl mx-auto relative">
 				<div className="grid lg:grid-cols-2 gap-16 items-center">

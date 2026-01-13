@@ -9,7 +9,7 @@ const testimonials = [
     name: "Sarah Chen",
     role: "Senior Developer",
     company: "Tech Corp",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=faces",
     content: "CodeSensor caught vulnerabilities we completely missed. The AI analysis is incredibly accurate and has saved us countless hours.",
     rating: 5,
   },
@@ -17,7 +17,7 @@ const testimonials = [
     name: "Marcus Rodriguez",
     role: "CTO",
     company: "StartupXYZ",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces",
     content: "Best code analysis tool I've used. The detailed reports and actionable insights make it easy to improve our codebase quality.",
     rating: 5,
   },
@@ -25,7 +25,7 @@ const testimonials = [
     name: "Emily Watson",
     role: "Lead Engineer",
     company: "DevFlow",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces",
     content: "The security analysis alone is worth it. We've significantly reduced vulnerabilities since implementing CodeSensor.",
     rating: 5,
   },
@@ -33,7 +33,7 @@ const testimonials = [
     name: "James Kim",
     role: "Full Stack Dev",
     company: "CloudNine",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces",
     content: "Game changer for our team. The AI recommendations are spot-on and help us maintain high code quality standards.",
     rating: 5,
   },
@@ -41,7 +41,7 @@ const testimonials = [
     name: "Linda Johnson",
     role: "Product Lead",
     company: "InnovateLab",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Linda",
+    avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop&crop=faces",
     content: "Fast, accurate, and incredibly easy to use. CodeSensor has become an essential part of our development workflow.",
     rating: 5,
   },
@@ -49,7 +49,7 @@ const testimonials = [
     name: "David Park",
     role: "Security Engineer",
     company: "SecureCode",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=faces",
     content: "The vulnerability detection is exceptional. It's like having a security expert review every line of code.",
     rating: 5,
   },
@@ -128,6 +128,7 @@ export default function Testimonials() {
                         width={48}
                         height={48}
                         className="rounded-full"
+                        unoptimized
                       />
                     </div>
                   </div>
