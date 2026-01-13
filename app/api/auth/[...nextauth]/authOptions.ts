@@ -15,6 +15,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 
+  pages: {
+    signIn: '/signin',
+  },
+
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "github") {

@@ -195,18 +195,6 @@ export default function NotFound() {
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             </Link>
           </Button>
-
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="group border-2 border-gray-700 bg-transparent hover:bg-CodeSensor-Primary/5 hover:border-CodeSensor-Primary px-8 py-6 text-lg font-semibold transition-all duration-300"
-          >
-            <Link href="/dashboard">
-              <ArrowLeft className="mr-2 w-5 h-5" />
-              Go to Dashboard
-            </Link>
-          </Button>
         </motion.div>
 
         {/* Popular Links */}

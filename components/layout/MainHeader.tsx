@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, ArrowRight, X, User, LogOut, LayoutDashboard, Settings } from 'lucide-react';
+import { Menu, ArrowRight, X, User, LogOut, LayoutDashboard, Settings, ChevronDown } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
 import {
@@ -41,6 +41,23 @@ const MainHeader = () => {
     { name: 'Features', href: '#features' },
     { name: 'How It Works', href: '#how-it-works' },
     { name: 'Security', href: '#security' },
+  ];
+
+  const resourcesDropdown = [
+    { section: 'Resources', items: [
+      { name: 'Documentation', href: '/docs' },
+      { name: 'GitHub', href: 'https://github.com/AngelCortes2005', external: true },
+    ]},
+    { section: 'Company', items: [
+      { name: 'About', href: '/about' },
+      { name: 'Contact', href: 'https://cortes-portfolio.vercel.app/en', external: true },
+    ]},
+    { section: 'Legal', items: [
+      { name: 'Privacy', href: '/privacy' },
+      { name: 'Terms', href: '/terms' },
+      { name: 'Cookies', href: '/cookies' },
+      { name: 'License', href: '/license' },
+    ]},
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -124,6 +141,46 @@ const MainHeader = () => {
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary group-hover:w-4/5 transition-all duration-300" />
                 </a>
               ))}
+              
+              {/* More Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="relative px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 group outline-none flex items-center gap-1">
+                  More
+                  <ChevronDown className="w-3 h-3" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-CodeSensor-Secondary to-CodeSensor-Primary group-hover:w-4/5 transition-all duration-300" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="end" 
+                  className="w-64 bg-gray-950/95 backdrop-blur-xl border-gray-800 mt-2"
+                >
+                  {resourcesDropdown.map((section, idx) => (
+                    <div key={section.section}>
+                      <div className="px-3 py-2">
+                        <p className="text-xs font-semibold text-CodeSensor-Primary/70 uppercase tracking-wider">
+                          {section.section}
+                        </p>
+                      </div>
+                      {section.items.map((item) => (
+                        <DropdownMenuItem key={item.name} asChild>
+                          <Link
+                            href={item.href}
+                            target={item.external ? '_blank' : undefined}
+                            className="cursor-pointer hover:bg-white/5 text-gray-300 flex items-center justify-between"
+                          >
+                            <span>{item.name}</span>
+                            {item.external && (
+                              <ArrowRight className="w-3 h-3 opacity-50 -rotate-45" />
+                            )}
+                          </Link>
+                        </DropdownMenuItem>
+                      ))}
+                      {idx < resourcesDropdown.length - 1 && (
+                        <DropdownMenuSeparator className="bg-gray-800 my-1" />
+                      )}
+                    </div>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </nav>
           )}
           
@@ -231,25 +288,8 @@ const MainHeader = () => {
 
                   {/* Mobile Navigation */}
                   <nav className="flex-1 px-4 py-6 overflow-y-auto">
-                    {isLandingPage && (
-                      <ul className="space-y-2 mb-6">
-                        {navigationItems.map((item, index) => (
-                          <li key={item.name}>
-                            <a 
-                              href={item.href}
-                              onClick={(e) => handleNavClick(e, item.href)}
-                              className="flex items-center justify-between px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-300"
-                            >
-                              <span className="font-medium">{item.name}</span>
-                              <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-CodeSensor-Primary" />
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
                     {status === 'authenticated' && (
-                      <ul className="space-y-2">
+                      <ul className="space-y-2 mb-6">
                         <li>
                           <button
                             onClick={() => {
@@ -263,6 +303,51 @@ const MainHeader = () => {
                           </button>
                         </li>
                       </ul>
+                    )}
+
+                    {isLandingPage && (
+                      <>
+                        <ul className="space-y-2 mb-6">
+                          {navigationItems.map((item, index) => (
+                            <li key={item.name}>
+                              <a 
+                                href={item.href}
+                                onClick={(e) => handleNavClick(e, item.href)}
+                                className="flex items-center justify-between px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-300"
+                              >
+                                <span className="font-medium">{item.name}</span>
+                                <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-CodeSensor-Primary" />
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* Additional Links */}
+                        {resourcesDropdown.map((section) => (
+                          <div key={section.section} className="mb-6">
+                            <h4 className="px-4 py-2 text-xs font-semibold text-CodeSensor-Primary/70 uppercase tracking-wider">
+                              {section.section}
+                            </h4>
+                            <ul className="space-y-2">
+                              {section.items.map((item) => (
+                                <li key={item.name}>
+                                  <Link
+                                    href={item.href}
+                                    target={item.external ? '_blank' : undefined}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="flex items-center justify-between px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-300"
+                                  >
+                                    <span className="font-medium">{item.name}</span>
+                                    {item.external && (
+                                      <ArrowRight className="w-4 h-4 text-CodeSensor-Primary/50 -rotate-45" />
+                                    )}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </>
                     )}
                   </nav>
 
